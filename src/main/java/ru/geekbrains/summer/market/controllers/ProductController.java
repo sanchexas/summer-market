@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.summer.market.model.Category;
 import ru.geekbrains.summer.market.model.Product;
 import ru.geekbrains.summer.market.services.ProductService;
 
@@ -34,13 +35,13 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping ("/products/{id}")
-    public String showProductInfo(Model model, @PathVariable Long id) {
-        model.addAttribute("product", productService.findById(id));
-        return "product_info";
-    }
+//    @GetMapping ("/products/{id}")
+//    public String showProductInfo(Model model, @PathVariable Long id) {
+//        model.addAttribute("product", productService.findById(id));
+//        return "product_info";
+//    }
 
-    @GetMapping("/products/find_by_price")
+@GetMapping("/products/find_by_price")
     @ResponseBody
     public List<Product> findByMinPrice(@RequestParam(name = "min") int min) {
         return productService.findByMinPrice(min);
