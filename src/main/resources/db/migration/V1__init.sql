@@ -1,30 +1,26 @@
-create table categories (id bigserial primary key, title varchar(255));
-insert into categories (title)
-values
-('Food');
 
-create table products (id bigserial primary key, title varchar(255), price int, category_id bigint references categories (id));
-insert into products (title, price, category_id)
+create table products (id bigserial primary key, title varchar(255), price int);
+insert into products (title, price)
 values
-('P1', 85, 1),
-('P2', 25, 1),
-('P3', 450, 1),
-('P4', 85, 1),
-('P5', 25, 1),
-('P6', 450, 1),
-('P7', 85, 1),
-('P8', 25, 1),
-('P9', 450, 1),
-('P10', 85, 1),
-('P11', 25, 1),
-('P12', 450, 1),
-('P13', 85, 1),
-('P14', 25, 1),
-('P15', 450, 1),
-('P16', 85, 1),
-('P17', 25, 1),
-('P18', 450, 1),
-('P19', 25, 1),
-('P20', 450, 1);
+('P1', 85),
+('P2', 25),
+('P3', 450),
+('P4', 85),
+('P5', 25),
+('P6', 450),
+('P7', 85),
+('P8', 25),
+('P9', 450),
+('P10', 85),
+('P11', 25),
+('P12', 450),
+('P13', 85),
+('P14', 25),
+('P15', 450),
+('P16', 85),
+('P17', 25),
+('P18', 450),
+('P19', 25),
+('P20', 450);
 
 
