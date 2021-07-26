@@ -22,19 +22,17 @@ public class ProductService {
     public Product findById(Long id) {
         return productRepository.findById(id).get();
     }
-//----
-    public Product removeProductFromList(Long id) {
-     productRepository.deleteById(id);
-     // не понимаю как метод должен вернуть удаление, если deleteById ничего не возвращает
-    }
-//----
-
 
     public Page<Product> findPage(int pageIndex, int pageSize){
         return productRepository.findAll(PageRequest.of(pageIndex,pageSize));
     }
 
-//    public Optional<Product> findById(Long id) {
-//        return productRepository.findById(id);
-//    }
+    public Product save(Product newProduct) {
+        return productRepository.save(newProduct);
+    }
+
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
+    }
+
 }
