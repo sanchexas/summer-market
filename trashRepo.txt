@@ -1,0 +1,15 @@
+-----------------------------------------------------------------------------------------
+Пример кнопки html&js:
+
+$scope.counterValue = 1;
+
+    $scope.clickIncrementButton = function () {
+        $scope.counterValue += 1;
+    };
+
+
+<p></p>
+    <h3>Counter: {{counterValue}}</h3>
+    <button class="btn btn-primary" ng-click="clickIncrementButton()">Increment</button>
+
+------------------------------------------------------------------------------------------
