@@ -1,9 +1,9 @@
 angular.module('app', []).controller('indexController', function ($scope, $http) {
-    const contextPath = 'http://localhost:8189/summer';
+    const contextPath = 'http://localhost:8189/summer/api/v1';
 
     $scope.loadPage = function (pageIndex = 1) {
         $http({
-            url: contextPath + '/api/v1/products',
+            url: contextPath + '/products',
             method: 'GET',
             params: {
                 'p': pageIndex
@@ -15,14 +15,42 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     };
 
-    $scope.showProductInfo = function (productIndex) {
+    $scope.loadCart = function () {
         $http({
-            url: contextPath + '/api/v1/products/' + productIndex,
+            url: contextPath + '/cart',
             method: 'GET'
         }).then(function (response) {
-            alert(response.data.title);
+            $scope.cart = response.data;
         });
-    };
+    }
+
+    $scope.addToCart = function (productId) {
+        $http({
+            url: contextPath + '/cart/add/' + productId,
+            method: 'GET'
+        }).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.emptyCart = function () {
+            $http({
+                url: contextPath + '/cart/empty_cart',
+                method: 'GET'
+            }).then(function (response) {
+                $scope.cart = null;
+            });
+        }
+
+        $scope.deleteProduct = function () {
+                    $http({
+                        url: contextPath + '/cart/delete_product',
+                        method: 'GET'
+                    }).then(function (response) {
+                        $scope.cart = null;
+                    });
+                }
+
 
     $scope.generatePagesIndexes = function (startPage, endPage) {
         let arr = [];
@@ -33,4 +61,5 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     }
 
     $scope.loadPage();
+    $scope.loadCart();
 });

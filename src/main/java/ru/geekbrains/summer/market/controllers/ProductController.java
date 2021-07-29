@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.summer.market.dto.ProductDto;
 import ru.geekbrains.summer.market.model.Product;
 import ru.geekbrains.summer.market.services.ProductService;
+import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
 
 
 @RestController
@@ -17,12 +18,14 @@ public class ProductController {
     // GET http://localhost:8189/summer
    @GetMapping("/{id}")
     public ProductDto findById(@PathVariable Long id){
-        return new ProductDto(productService.findById(id));
+       Product p = productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Product not found, id: " + id));
+       return new ProductDto(p);
+
     }
 
     @GetMapping
-    public Page<Product> findAllProducts(@RequestParam(name = "p", defaultValue = "1") int pageIndex){
-        return productService.findPage(-1,5);
+    public Page<ProductDto> findAllProducts(@RequestParam(name = "p", defaultValue = "1") int pageIndex){
+        return productService.findPage(pageIndex -1,5).map(ProductDto::new);
     }
 
     @PostMapping
