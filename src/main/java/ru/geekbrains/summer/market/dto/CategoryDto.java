@@ -3,7 +3,7 @@ package ru.geekbrains.summer.market.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.geekbrains.summer.market.model.Category;
-import ru.geekbrains.summer.market.model.Product;
+
 
 @Data
 @NoArgsConstructor
