@@ -50,6 +50,25 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                         $scope.cart = null;
                     });
                 }
+        $scope.loadOrders = function () {
+                $http({
+                    url: contextPath + '/orders',
+                    method: 'GET'
+                }).then(function (response) {
+                    $scope.orders = response.data;
+                });
+            }
+
+        $scope.createOrder = function () {
+                $http({
+                    url: contextPath + '/orders',
+                    method: 'POST'
+                }).then(function (response) {
+                    alert('Заказ создан');
+                    $scope.loadCart();
+                    $scope.loadOrders();
+                });
+            }
 
 
     $scope.generatePagesIndexes = function (startPage, endPage) {
@@ -62,4 +81,5 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
     $scope.loadPage();
     $scope.loadCart();
+    $scope.loadOrders();
 });
