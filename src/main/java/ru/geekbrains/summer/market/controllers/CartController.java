@@ -39,8 +39,8 @@ public class CartController {
     public void clear(){
         cart.clear();
     }
-    @GetMapping("/delete_product{id}")
-    public void delete(@PathVariable Long id){
-        cart.clear(productService.deleteById(id));
-    }
+//    @GetMapping("/delete_product{id}")
+//    public void delete(@PathVariable Long id){
+//        cart.clear(productService.deleteById(id));
+//    }
 }
