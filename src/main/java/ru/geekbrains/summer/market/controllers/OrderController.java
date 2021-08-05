@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.summer.market.dto.OrderDto;
-import ru.geekbrains.summer.market.model.Order;
+import ru.geekbrains.summer.market.model.User;
 import ru.geekbrains.summer.market.services.OrderService;
+import ru.geekbrains.summer.market.services.UserService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,9 +19,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+    private final UserService userService;
 
     @PostMapping
-    public void createOrder() {
+    public void createOrder(Principal principal) {
+        User user = userService.findByUsername(principal.getName()).get();
+        System.out.println(user.getEmail());
         orderService.createOrder();
     }
 
