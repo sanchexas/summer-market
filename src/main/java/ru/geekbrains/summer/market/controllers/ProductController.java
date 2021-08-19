@@ -8,24 +8,21 @@ import ru.geekbrains.summer.market.model.Product;
 import ru.geekbrains.summer.market.services.ProductService;
 import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
 
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/products")
 public class ProductController {
     private final ProductService productService;
 
-    // GET http://localhost:8189/summer
-   @GetMapping("/{id}")
-    public ProductDto findById(@PathVariable Long id){
-       Product p = productService.findById(id).orElseThrow(()-> new ResourceNotFoundException("Product not found, id: " + id));
-       return new ProductDto(p);
-
+    @GetMapping(value = "/{id}")
+    public ProductDto findById(@PathVariable Long id) {
+        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id: " + id));
+        return new ProductDto(p);
     }
 
     @GetMapping
-    public Page<ProductDto> findAllProducts(@RequestParam(name = "p", defaultValue = "1") int pageIndex){
-        return productService.findPage(pageIndex -1,5).map(ProductDto::new);
+    public Page<ProductDto> findAll(@RequestParam(name = "p", defaultValue = "1") int pageIndex) {
+        return productService.findPage(pageIndex - 1, 5).map(ProductDto::new);
     }
 
     @PostMapping
@@ -36,10 +33,8 @@ public class ProductController {
         return new ProductDto(productService.save(product));
     }
 
-
-    @DeleteMapping("/remove_product/{id}")
-    public void deleteProductById(@PathVariable Long id){
-       productService.deleteById(id);
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productService.deleteById(id);
     }
-
 }
