@@ -8,6 +8,7 @@ import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.summer.market.model.Order;
 import ru.geekbrains.summer.market.model.OrderItem;
 import ru.geekbrains.summer.market.model.Product;
+import ru.geekbrains.summer.market.model.User;
 import ru.geekbrains.summer.market.repositories.OrderRepository;
 import ru.geekbrains.summer.market.utils.Cart;
 
@@ -23,10 +24,13 @@ public class OrderService {
     private final Cart cart;
 
     @Transactional
-    public void createOrder() {
+    public void createOrder(User user, String address, String phone) {
         Order order = new Order();
         order.setPrice(cart.getPrice());
         order.setItems(new ArrayList<>());
+        order.setUser(user);
+        order.setPhone(phone);
+        order.setAddress(address);
         for (OrderItemDto o : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);

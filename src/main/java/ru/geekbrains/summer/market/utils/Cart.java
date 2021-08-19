@@ -10,6 +10,7 @@ import ru.geekbrains.summer.market.model.Product;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -51,5 +52,26 @@ public class Cart {
         for (OrderItemDto oid : items) {
             price = price.add(oid.getPrice());
         }
+    }
+
+    public void remove(Long productId) {
+        items.removeIf(oi -> oi.getProductId().equals(productId));
+        recalculate();
+    }
+
+    public boolean changeQuantity(Long productId, int amount) {
+        Iterator<OrderItemDto> iter = items.iterator();
+        while (iter.hasNext()) {
+            OrderItemDto o = iter.next();
+            if (o.getProductId().equals(productId)) {
+                o.changeQuantity(amount);
+                if (o.getQuantity() <= 0) {
+                    iter.remove();
+                }
+                recalculate();
+                return true;
+            }
+        }
+        return false;
     }
 }

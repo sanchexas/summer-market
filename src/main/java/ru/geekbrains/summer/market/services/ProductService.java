@@ -1,6 +1,7 @@
 package ru.geekbrains.summer.market.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,8 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Page<Product> findPage(int pageIndex, int pageSize){
-        return productRepository.findAll(PageRequest.of(pageIndex,pageSize));
+    public Page<Product> findPage(int pageIndex, int pageSize) {
+        return productRepository.findAll(PageRequest.of(pageIndex, pageSize));
     }
 
     public Product save(Product newProduct) {
@@ -34,5 +35,4 @@ public class ProductService {
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
-
 }
