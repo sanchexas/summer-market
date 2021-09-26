@@ -57,16 +57,16 @@ create table products
 );
 
 insert into products (title, price, category_id)
-values ('P1', 95, 1),
-       ('P2', 28, 1),
-       ('P3', 420, 1),
-       ('P4', 420, 1),
-       ('P5', 420, 1),
-       ('P6', 420, 1),
-       ('P7', 420, 1),
-       ('P8', 420, 1),
-       ('P9', 420, 1),
-       ('P10', 420, 1);
+values ('Milk', 95, 1),
+       ('Bread', 28, 1),
+       ('Cheese', 420, 1),
+       ('Cheese2', 420, 1),
+       ('Cheese3', 420, 1),
+       ('Cheese4', 420, 1),
+       ('Cheese5', 420, 1),
+       ('Cheese6', 420, 1),
+       ('Cheese7', 420, 1),
+       ('Cheese8', 420, 1);
 
 create table orders
 (
