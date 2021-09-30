@@ -3,6 +3,7 @@ package ru.geekbrains.summer.market.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.summer.market.dto.ProductDto;
 import ru.geekbrains.summer.market.model.Product;
@@ -11,6 +12,7 @@ import ru.geekbrains.summer.market.services.ProductService;
 import ru.geekbrains.summer.market.exceptions.ResourceNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,19 +29,10 @@ public class ProductController {
     @GetMapping
     public Page<ProductDto> findAll(
             @RequestParam(name = "p", defaultValue = "1") int pageIndex,
-            @RequestParam(name = "min_price", required = false) BigDecimal minPrice,
-            @RequestParam(name = "title", required = false) String title
+            @RequestParam MultiValueMap<String, String> params
     ) {
-        Specification<Product> spec = Specification.where(null);
-        if (minPrice != null) {
-            spec = spec.and(ProductSpecifications.priceGreaterOrEqualsThan(minPrice));
-        }
-        if (title != null) {
-            spec = spec.and(ProductSpecifications.titleLike(title));
-        }
-        return productService.findPage(pageIndex - 1, 5, spec).map(ProductDto::new);
+        return productService.findPage(pageIndex - 1, 5, params).map(ProductDto::new);
     }
-
 
     @PostMapping
     public ProductDto createNewProduct(@RequestBody ProductDto newProductDto) {
@@ -52,5 +45,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
+    }
+
+    @PostMapping("/pack")
+    public void demoPack(@RequestParam Map<String, String> params) {
+        System.out.println(1);
     }
 }
